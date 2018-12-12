@@ -23,9 +23,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
+win32-g* {
+ LIBS += -lopengl32
+}
+
+win32-msvc* {
+ LIBS += opengl32.lib
+}
+
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    glwidget.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    glwidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    mainwindow.ui
+
+CONFIG += resources_big
+
+RESOURCES += \
+    textures.qrc \
+    shaders.qrc
+
+DISTFILES +=
