@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>mtl_monkey.mtl</file>
+        <file>mtl_monkey.obj</file>
+    </qresource>
+</RCC>

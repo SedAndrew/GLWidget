@@ -8,9 +8,8 @@ int main(int argc, char *argv[])
 
     // устанавливаем формат
     QSurfaceFormat format;
-    format.setSamples(16); // 16 samples при отрисовки (убираем зернистость)
-    format.setDepthBufferSize(24);  // установка размера буфера глубины (обычно для андройда) ликвидация
-                                    // возможной некоректной отрисовки задней части поверх передней
+    format.setSamples(16); // 16 samples при отрисовки
+    format.setDepthBufferSize(24); // установки буфера глубины (обыяно для андройда) ликвидация возможной некоректной отрисовки задней части поверх передней
     QSurfaceFormat::setDefaultFormat(format); // установка default формата для opengl
 
     MainWindow w;

@@ -33,10 +33,19 @@ win32-msvc* {
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    glwidget.cpp
+    glwidget.cpp \
+    simpleobject3d.cpp \
+    camera3d.cpp \
+    group3d.cpp \
+    skybox.cpp
 
 HEADERS  += mainwindow.h \
-    glwidget.h
+    glwidget.h \
+    simpleobject3d.h \
+    camera3d.h \
+    group3d.h \
+    transformational.h \
+    skybox.h
 
 FORMS    += \
     mainwindow.ui
@@ -45,6 +54,8 @@ CONFIG += resources_big
 
 RESOURCES += \
     textures.qrc \
-    shaders.qrc
+    shaders.qrc \
+    skybox.qrc \
+    modeles.qrc
 
 DISTFILES +=

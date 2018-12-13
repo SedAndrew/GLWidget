@@ -20,8 +20,6 @@ MainWindow::~MainWindow()
 
 bool MainWindow::load(const QString &f)
 {
-    Q_UNUSED(f)
-
 /*    if (!QFile::exists(f))
         return false;
     QFile file(f);
@@ -34,7 +32,6 @@ bool MainWindow::load(const QString &f)
 
 void MainWindow::setCurrentFileName(const QString &fileName)
 {
-    Q_UNUSED(fileName)
    /* this->fileName = fileName;
 
     QString shownName;
@@ -49,7 +46,6 @@ void MainWindow::setCurrentFileName(const QString &fileName)
 
 void MainWindow::on_actionOpen_file_triggered()
 {
-
     /*  QString fn = QFileDialog::getOpenFileName(this, tr("Открыть файл..."),QString(), tr("Objects (*.objects);;Все файлы (*)"));
        if (!fn.isEmpty())
            load(fn);

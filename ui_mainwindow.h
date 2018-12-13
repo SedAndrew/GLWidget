@@ -70,8 +70,8 @@ public:
         gB_Config->setMinimumSize(QSize(201, 0));
         gB_Config->setMaximumSize(QSize(201, 16777215));
         QFont font;
-        font.setFamily(QStringLiteral("Arial Rounded MT Bold"));
-        font.setPointSize(8);
+        font.setFamily(QStringLiteral("Felix Titling"));
+        font.setPointSize(16);
         font.setKerning(true);
         gB_Config->setFont(font);
         gB_Config->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
