@@ -435,7 +435,7 @@ void GLwidget::loadObj(const QString &path)
 {
     QFile objFile(path);
     if (!objFile.exists()) {
-        qDebug() << "File njt found";
+        qDebug() << "File not found";
         return;
     }
 

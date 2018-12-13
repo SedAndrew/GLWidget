@@ -39,7 +39,7 @@ protected:
      void initCube(float width);
      void initCristal(float underside, float height);
 
-     void loadObj(QString path);
+     void loadObj(const QString &path);
 
      QVector3D average_sum_3_vectors(QVector3D v1, QVector3D v2, QVector3D v3);
      QVector3D average_sum_4_vectors(QVector3D v1, QVector3D v2, QVector3D v3, QVector3D v4);
