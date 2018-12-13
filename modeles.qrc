@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>mtl_monkey.mtl</file>
         <file>mtl_monkey.obj</file>
+        <file>MonkeySimple.mtl</file>
+        <file>MonkeySimple.obj</file>
     </qresource>
 </RCC>

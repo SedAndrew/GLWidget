@@ -40,6 +40,7 @@ protected:
      void initCristal(float underside, float height);
 
      void loadObj(const QString &path);
+     void addObject(SimpleObject3D *object);
 
      QVector3D average_sum_3_vectors(QVector3D v1, QVector3D v2, QVector3D v3);
      QVector3D average_sum_4_vectors(QVector3D v1, QVector3D v2, QVector3D v3, QVector3D v4);
