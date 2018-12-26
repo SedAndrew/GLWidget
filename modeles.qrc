@@ -4,5 +4,7 @@
         <file>mtl_monkey.obj</file>
         <file>MonkeySimple.mtl</file>
         <file>MonkeySimple.obj</file>
+        <file>BB8 New/bb9.mtl</file>
+        <file>BB8 New/bb9.obj</file>
     </qresource>
 </RCC>

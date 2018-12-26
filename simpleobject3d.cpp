@@ -1,4 +1,5 @@
 #include "simpleobject3d.h"
+#include "material.h"
 #include <QOpenGLTexture>
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
@@ -9,11 +10,11 @@ SimpleObject3D::SimpleObject3D() :
     m_scale = 1.0f;
 }
 
-SimpleObject3D::SimpleObject3D(const QVector<VertexData> &vertData, const QVector<GLuint> &indexes, const QImage &texture) :
+SimpleObject3D::SimpleObject3D(const QVector<VertexData> &vertData, const QVector<GLuint> &indexes, Material *material) :
     m_indexBuffer(QOpenGLBuffer::IndexBuffer), m_diffuseMap(0)
 {
     m_scale = 1.0f;
-    init(vertData, indexes, texture);
+    init(vertData, indexes, material);
 }
 
 SimpleObject3D::~SimpleObject3D()
@@ -28,7 +29,7 @@ SimpleObject3D::~SimpleObject3D()
     }
 }
 
-void SimpleObject3D::init(const QVector<VertexData> &vertData, const QVector<GLuint> &indexes, const QImage &texture)
+void SimpleObject3D::init(const QVector<VertexData> &vertData, const QVector<GLuint> &indexes, Material *material)
 {
     if (!m_vertexBuffer.isCreated())
         m_vertexBuffer.destroy();
@@ -52,7 +53,9 @@ void SimpleObject3D::init(const QVector<VertexData> &vertData, const QVector<GLu
     m_indexBuffer.allocate(indexes.constData(), indexes.size() * sizeof(GLuint));
     m_indexBuffer.release();
 
-    m_diffuseMap = new QOpenGLTexture(texture.mirrored());
+    m_material = material;
+
+    m_diffuseMap = new QOpenGLTexture(m_material->diffuseMap().mirrored());
 
     m_diffuseMap->setMinificationFilter(QOpenGLTexture::Nearest);
     m_diffuseMap->setMagnificationFilter(QOpenGLTexture::Linear);

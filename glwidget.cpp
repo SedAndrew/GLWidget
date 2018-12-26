@@ -1,12 +1,13 @@
 #include "glwidget.h"
 #include "group3d.h"
-#include <simpleobject3d.h>
+#include <objectengine3d.h>
 #include <QMouseEvent>
 #include <QOpenGLContext>
 #include <QtMath>
 #include <QFileInfo>
 #include "camera3d.h"
 #include "skybox.h"
+#include "material.h"
 
 GLwidget::GLwidget(QWidget *parent) :
     QOpenGLWidget(parent)
@@ -78,7 +79,10 @@ void GLwidget::initializeGL()
     m_groups[2]->addObject(m_groups[1]);
 
     m_transformObjects.append(m_groups[2]);
-    loadObj(":/MonkeySimple.obj");
+
+    m_objects.append(new ObjectEngine3D);
+    m_objects[m_objects.size() - 1]->loadObjectFromFile(":/BB8 New/bb9.obj");
+    m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, 0.0f, 0.0f));
     m_transformObjects.append(m_objects[m_objects.size() - 1]);
 
     //m_groups[0]->addObject(m_camera);
@@ -137,11 +141,9 @@ void GLwidget::mouseMoveEvent(QMouseEvent *event)
     m_mousePosition = QVector2D(event->localPos());
 
     float angle = diff.length() / 2.0;
-
     // вектор вокруг которого будет совершаться поворот
     QVector3D axis = QVector3D(diff.y(), diff.x(), 0.0);
 
-//    m_rotations = QQuaternion::fromAxisAndAngle(axis, angle) * m_rotations;
     m_camera->rotate(QQuaternion::fromAxisAndAngle(axis, angle));
 
     update();
@@ -290,7 +292,20 @@ void GLwidget::initCube(float width)
         indexes.append(i + 3);
     }
 
-    m_objects.append(new SimpleObject3D(vertexes, indexes, QImage(":/cube5.png")));
+    Material *newMtl = new Material;
+    newMtl->setDiffuseMap(":/cube5.png");
+//    newMtl->setNormalMap(":/5406-normal.jpg");
+    newMtl->setShininess(96);
+    newMtl->setDiffuseColor(QVector3D(1.0, 1.0, 1.0));
+    newMtl->setAmbienceColor(QVector3D(1.0, 1.0, 1.0));
+    newMtl->setSpecularColor(QVector3D(1.0, 1.0, 1.0));
+    newMtl->setTransparency(1.0);
+
+    ObjectEngine3D *newObj = new ObjectEngine3D;
+//    newObj->calculateTBN(vertexes);
+    newObj->addObject(new SimpleObject3D(vertexes, indexes, newMtl));
+
+    m_objects.append(newObj);
 }
 
 void GLwidget::initCristal(float underside, float height)
@@ -431,80 +446,23 @@ void GLwidget::initCristal(float underside, float height)
         indexes.append(i + 2);
     }
 
-    m_objects.append(new SimpleObject3D(vertexes, indexes, QImage(":/sots.png")));
+    Material *newMtl = new Material;
+    newMtl->setDiffuseMap(":/sots.png");
+//    newMtl->setNormalMap(":/5406-normal.jpg");
+    newMtl->setShininess(96);
+    newMtl->setDiffuseColor(QVector3D(1.0, 1.0, 1.0));
+    newMtl->setAmbienceColor(QVector3D(1.0, 1.0, 1.0));
+    newMtl->setSpecularColor(QVector3D(1.0, 1.0, 1.0));
+    newMtl->setTransparency(1.0);
+
+    ObjectEngine3D *newObj = new ObjectEngine3D;
+//    newObj->calculateTBN(vertexes);
+    newObj->addObject(new SimpleObject3D(vertexes, indexes, newMtl));
+
+    m_objects.append(newObj);
 }
 
-void GLwidget::loadObj(const QString &path)
-{
-    QFile objFile(path);
-    if (!objFile.exists()) {
-        qDebug() << "File not found";
-        return;
-    }
-
-    objFile.open(QIODevice::ReadOnly);
-    QTextStream input(&objFile);
-
-    QVector<QVector3D > coords;
-    QVector<QVector2D > texCoords;
-    QVector<QVector3D > normals;
-
-    QVector<VertexData > vertexes;
-    QVector<GLuint     > indexes;
-    SimpleObject3D *object = 0;
-    QString mtlName;
-
-    while (!input.atEnd()) {
-        QString str = input.readLine();
-        QStringList list = str.split(" ");
-        if (list[0] == "#") {
-            qDebug() << "This is comment: " << str;
-            continue;
-        } else if (list[0] == "mtllib") {
-            QFileInfo info(path);
-//            m_materialLibrary.loadMaterialsFromFile(QString("%1/%2").arg(info.absolutePath()).arg(list[1]));
-            // Обработать файл с материалами
-            qDebug() << "File with materils: " << str;
-        } else if (list[0] == "v") {     // вершинные координаты
-            coords.append(QVector3D(list[1].toFloat(), list[2].toFloat(), list[3].toFloat()));
-            continue;
-        } else if (list[0] == "vt") {    // текстурные координаты
-            texCoords.append(QVector2D(list[1].toFloat(), list[2].toFloat()));
-            continue;
-        } else if (list[0] == "vn") {    // координаты нормали
-            normals.append(QVector3D(list[1].toFloat(), list[2].toFloat(), list[3].toFloat()));
-            continue;
-        } else if (list[0] == "f") {     // полигоны
-            for (int i = 1; i <= 3; i++) {
-                QStringList vert = list[i].split("/"); // индексы
-                vertexes.append(VertexData(coords[vert[0].toLong() - 1], texCoords[vert[1].toLong() - 1], normals[vert[2].toLong() - 1]));
-                indexes.append(indexes.size());
-            }
-            continue;
-        } else if (list[0] == "usemtl") {
-            if (object) {
-//                calculateTBN(vertexes);
-                object->init(vertexes, indexes, QImage(list[1]));
-            }
-            mtlName = list[1];
-            addObject(object);
-            object = new SimpleObject3D;
-            vertexes.clear();
-            indexes.clear();
-        }
-    }
-/*
-    if (object) {
-//        calculateTBN(vertexes);
-        object->init(vertexes, indexes, QImage(mtlName));
-    }
-    addObject(object);
-*/
-    m_objects.append(new SimpleObject3D(vertexes, indexes, QImage(":/sots.png")));
-    objFile.close();
-}
-
-void GLwidget::addObject(SimpleObject3D *object)
+void GLwidget::addObject(ObjectEngine3D *object)
 {
     if (!object) return;
 

@@ -9,6 +9,7 @@
 class QOpenGLTexture;
 class QOpenGLFunctions;
 class QOpenGLShaderProgram;
+class Material;
 
 struct VertexData
 {
@@ -25,10 +26,10 @@ class SimpleObject3D : public Transformational
 {
 public:
     SimpleObject3D();
-    SimpleObject3D(const QVector<VertexData> &vertData, const QVector<GLuint> &indexes, const QImage &texture);
+    SimpleObject3D(const QVector<VertexData> &vertData, const QVector<GLuint> &indexes, Material *material);
     ~SimpleObject3D();
 
-    void init(const QVector<VertexData> &vertData, const QVector<GLuint> &indexes, const QImage &texture);
+    void init(const QVector<VertexData> &vertData, const QVector<GLuint> &indexes, Material *material);
     void draw(QOpenGLShaderProgram *program, QOpenGLFunctions * functions);
     void rotate(const QQuaternion &r);
     void translate(const QVector3D &t);
@@ -45,6 +46,8 @@ private:
     QVector3D m_translate;
     float m_scale;
     QMatrix4x4 m_globalTransform;
+
+    Material *m_material;
 
 };
 

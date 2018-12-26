@@ -10,7 +10,7 @@
 #include <QBasicTimer>
 #include <QKeyEvent>
 
-class SimpleObject3D;
+class ObjectEngine3D;
 class Transformational;
 class Group3D;
 class Camera3D;
@@ -39,8 +39,7 @@ protected:
      void initCube(float width);
      void initCristal(float underside, float height);
 
-     void loadObj(const QString &path);
-     void addObject(SimpleObject3D *object);
+     void addObject(ObjectEngine3D *object);
 
      QVector3D average_sum_3_vectors(QVector3D v1, QVector3D v2, QVector3D v3);
      QVector3D average_sum_4_vectors(QVector3D v1, QVector3D v2, QVector3D v3, QVector3D v4);
@@ -58,7 +57,7 @@ private:
     осуществляется поворот, и об углах, на которых поворот будет осуществляться
     */
 
-    QVector<SimpleObject3D *> m_objects;
+    QVector<ObjectEngine3D *> m_objects;
     QVector<Group3D *> m_groups;
     QVector<Transformational *> m_transformObjects;
 

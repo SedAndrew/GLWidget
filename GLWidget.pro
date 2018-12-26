@@ -37,7 +37,10 @@ SOURCES += main.cpp\
     simpleobject3d.cpp \
     camera3d.cpp \
     group3d.cpp \
-    skybox.cpp
+    skybox.cpp \
+    material.cpp \
+    materiallibrary.cpp \
+    objectengine3d.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -45,7 +48,10 @@ HEADERS  += mainwindow.h \
     camera3d.h \
     group3d.h \
     transformational.h \
-    skybox.h
+    skybox.h \
+    material.h \
+    materiallibrary.h \
+    objectengine3d.h
 
 FORMS    += \
     mainwindow.ui
