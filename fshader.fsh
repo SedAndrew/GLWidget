@@ -25,23 +25,27 @@ struct FogInfo
     float maxDist;
     float minDist;
     vec4 color;
-};
-
-uniform FogInfo Fog;
+} Fog;
 
 void main(void)
 {
   // результирующий цвет (черный)
    vec4 resultColor = vec4(0.0, 0.0, 0.0, 0.0);
    vec4 eyePosition = vec4(0.0, 0.0, 0.0, 1.0);
-  // диффузный цвет материала
    vec4 diffMatColor = texture2D(u_diffuseMap, v_texcoord);
+   vec3 usingNormal = v_normal;
+   if (u_isUsingNormalMap)
+    usingNormal = normalize(texture2D(u_normalMap, v_texcoord).rgb * 2.0 - 1.0);
   // вектор напроавления взгляда
    vec3 eyeVect = normalize(v_position.xyz - eyePosition.xyz);
+   if (u_isUsingNormalMap)
+    eyeVect = normalize(v_tbnMatrix * eyeVect);
   // вектор цвета (из точки 0,0,0 в точку, которую в данный момент обрабатывает фрагментный шейдер)
    vec3 lightVect = normalize(v_position.xyz - u_lightPosition.xyz);
+   if (u_isUsingNormalMap)
+    lightVect = normalize(v_tbnMatrix * lightVect);
   // отраженный свет (вектор направленный из точки которую мы рассматриваем в направлении куда отразится этот свет)
-   vec3 reflectLight = normalize(reflect(lightVect, v_normal));
+   vec3 reflectLight = normalize(reflect(lightVect, usingNormal));
   // длина вектора от наблюдателя до рассматриваемой точки
    float len = length(v_position.xyz - eyePosition.xyz);
   // specularFactor - отвечает за то, на сколько большим будет пятно блика
@@ -52,7 +56,7 @@ void main(void)
 
    if (u_isUsingDiffuseMap == false) diffMatColor = vec4(u_materialProperty.diffuseColor, 1.0); // не прозрачный
    // добавление диффузного освещения
-   vec4 diffColor = diffMatColor * u_lightPower * max(0,dot(v_normal, -lightVect));// / (1 + 0.75 * pow(len, 2));
+   vec4 diffColor = diffMatColor * u_lightPower * max(0,dot(usingNormal, -lightVect));// / (1 + 0.75 * pow(len, 2));
    resultColor += diffColor;
    // добавление ambient освещения
    vec4 ambientColor = ambientFactor * diffMatColor;

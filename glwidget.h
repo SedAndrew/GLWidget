@@ -16,7 +16,7 @@ class Group3D;
 class Camera3D;
 class SkyBox;
 
-class GLwidget : public QOpenGLWidget, protected QOpenGLFunctions_4_5_Core
+class GLwidget : public QOpenGLWidget//, protected QOpenGLFunctions_4_5_Core
 {
 public:
     GLwidget(QWidget *parent = 0);

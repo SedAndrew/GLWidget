@@ -30,7 +30,7 @@ GLwidget::~GLwidget()
 
 void GLwidget::initializeGL()
 {
-    initializeOpenGLFunctions();
+    //initializeOpenGLFunctions();
     glClearColor(0.02f, 0.03f, 0.1f, 1.0f);
 
     glEnable(GL_DEPTH_TEST); //буффер глубины
@@ -81,7 +81,7 @@ void GLwidget::initializeGL()
     m_transformObjects.append(m_groups[2]);
 
     m_objects.append(new ObjectEngine3D);
-    m_objects[m_objects.size() - 1]->loadObjectFromFile(":/BB8 New/bb9.obj");
+    m_objects[m_objects.size() - 1]->loadObjectFromFile(":/mtl_monkey.obj");//:/BB8 New/bb9.obj");
     m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, 0.0f, 0.0f));
     m_transformObjects.append(m_objects[m_objects.size() - 1]);
 
@@ -294,7 +294,7 @@ void GLwidget::initCube(float width)
 
     Material *newMtl = new Material;
     newMtl->setDiffuseMap(":/cube5.png");
-//    newMtl->setNormalMap(":/5406-normal.jpg");
+    newMtl->setNormalMap(":/BB8 New/normal.jpg");
     newMtl->setShininess(96.0);
     newMtl->setDiffuseColor(QVector3D(1.0, 1.0, 1.0));
     newMtl->setAmbienceColor(QVector3D(1.0, 1.0, 1.0));
@@ -302,7 +302,7 @@ void GLwidget::initCube(float width)
     newMtl->setTransparency(1.0);
 
     ObjectEngine3D *newObj = new ObjectEngine3D;
-//    newObj->calculateTBN(vertexes);
+    newObj->calculateTBN(vertexes);
     newObj->addObject(new SimpleObject3D(vertexes, indexes, newMtl));
 
     m_objects.append(newObj);

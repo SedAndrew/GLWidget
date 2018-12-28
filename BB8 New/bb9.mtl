@@ -11,7 +11,7 @@ Ni 1.500000
 d 1.000000
 illum 2
 map_Kd head top bump line.jpg
-map_Bump metall-normal.jpg
+map_Bump RadialCracks_N.jpg
 
 newmtl Material__61.002
 Ns 9.803922
@@ -23,7 +23,7 @@ Ni 1.500000
 d 1.000000
 illum 2
 map_Kd Head ring bump line.jpg
-map_Bump metall-normal.jpg
+map_Bump RadialCracks_N.jpg
 
 newmtl Material__61.002_NONE
 Ns 9.803922
@@ -35,7 +35,7 @@ Ni 1.500000
 d 1.000000
 illum 2
 map_Kd Head ring bump line.jpg
-map_Bump metall-normal.jpg
+map_Bump RadialCracks_N.jpg
 
 newmtl Material__61.003
 Ns 9.803922
@@ -94,7 +94,8 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd BODY bump MAP.jpg
-map_Bump metall-normal.jpg
+#map_Bump metall-normal.jpg
+map_Bump normal.jpg
 
 newmtl wire_028149177_NONE
 Ns 31.372549
