@@ -295,7 +295,7 @@ void GLwidget::initCube(float width)
     Material *newMtl = new Material;
     newMtl->setDiffuseMap(":/cube5.png");
 //    newMtl->setNormalMap(":/5406-normal.jpg");
-    newMtl->setShininess(96);
+    newMtl->setShininess(96.0);
     newMtl->setDiffuseColor(QVector3D(1.0, 1.0, 1.0));
     newMtl->setAmbienceColor(QVector3D(1.0, 1.0, 1.0));
     newMtl->setSpecularColor(QVector3D(1.0, 1.0, 1.0));

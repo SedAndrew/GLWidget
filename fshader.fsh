@@ -1,6 +1,17 @@
+struct materialProperty
+{
+    vec3 diffuseColor;
+    vec3 ambienceColor;
+    vec3 specularColor;
+    float shininess;
+};
+
 uniform sampler2D u_diffuseMap;
 uniform highp vec4 u_lightPosition;
 uniform highp float u_lightPower; // сила источника света
+
+uniform materialProperty u_materialProperty;
+uniform bool u_isUsingDiffuseMap;
 
 varying highp vec4 v_position;
 varying highp vec2 v_texcoord;
@@ -31,19 +42,21 @@ void main(void)
   // длина вектора от наблюдателя до рассматриваемой точки
    float len = length(v_position.xyz - eyePosition.xyz);
   // specularFactor - отвечает за то, на сколько большим будет пятно блика
-   float specularFactor = 10.0;
+   float specularFactor = u_materialProperty.shininess;
   // ambientFactor - отвечает за то, насколько ярким будет материал
    float ambientFactor = 0.1;
 
+
+   if (u_isUsingDiffuseMap == false) diffMatColor = vec4(u_materialProperty.diffuseColor, 1.0); // не прозрачный
    // добавление диффузного освещения
    vec4 diffColor = diffMatColor * u_lightPower * max(0,dot(v_normal, -lightVect));// / (1 + 0.75 * pow(len, 2));
    resultColor += diffColor;
    // добавление ambient освещения
    vec4 ambientColor = ambientFactor * diffMatColor;
-   resultColor += ambientColor;
+   resultColor += ambientColor * vec4(u_materialProperty.ambienceColor, 1.0);
    // добаление бликов
    vec4 specularColor = vec4(0.96, 0.96, 0.73, 1.0) * u_lightPower * pow(max(0, dot(reflectLight, -eyeVect)), specularFactor);// / (1 + 0.75 * pow(len, 2));
-   resultColor += specularColor;
+   resultColor += specularColor * vec4(u_materialProperty.specularColor, 1.0);
 
 
    Fog.color = vec4(0.16, 0.07, 0.15, 1.0);

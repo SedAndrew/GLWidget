@@ -45,22 +45,22 @@ const QVector3D &Material::specularColor() const
     return m_specularColor;
 }
 
-void Material::setShininess(const double &shininess)
+void Material::setShininess(const float &shininess)
 {
     m_shininess = shininess;
 }
 
-const double &Material::shininess() const
+const float &Material::shininess() const
 {
     return m_shininess;
 }
 
-void Material::setTransparency(const double &transparensy)
+void Material::setTransparency(const float &transparensy)
 {
     m_transparency = transparensy;
 }
 
-const double &Material::transparensy() const
+const float &Material::transparensy() const
 {
     return m_transparency;
 }

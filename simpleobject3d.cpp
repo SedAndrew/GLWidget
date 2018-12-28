@@ -78,6 +78,12 @@ void SimpleObject3D::draw(QOpenGLShaderProgram *program, QOpenGLFunctions *funct
     modelMatrix = m_globalTransform * modelMatrix;
 
     program->setUniformValue("u_modelMatrix", modelMatrix);
+    program->setUniformValue("u_materialProperty.diffuseColor", m_material->diffuseColor());
+    program->setUniformValue("u_materialProperty.ambienceColor", m_material->ambienceColor());
+    program->setUniformValue("u_materialProperty.specularColor", m_material->specularColor());
+    program->setUniformValue("u_materialProperty.shininess", m_material->shininess());
+    program->setUniformValue("u_isUsingDiffuseMap", m_material->isUsingDiffuseMap());
+//    program->setUniformValue("u_isUsingNormalMap", m_material->isUsingNormalMap());
 
     m_vertexBuffer.bind();
 

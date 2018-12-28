@@ -17,10 +17,10 @@ public:
     const QVector3D &ambienceColor() const;
     void setSpecularColor(const QVector3D &specularColor);
     const QVector3D &specularColor() const;
-    void setShininess(const double &shininess);
-    const double &shininess() const;
-    void setTransparency(const double &transparensy);
-    const double &transparensy() const;
+    void setShininess(const float &shininess);
+    const float &shininess() const;
+    void setTransparency(const float &transparensy);
+    const float &transparensy() const;
     void setDiffuseMap(const QString &filename);
     void setDiffuseMap(const QImage &imageFile);
     const QImage &diffuseMap() const;
@@ -31,8 +31,8 @@ private:
     QVector3D m_diffuseColor;
     QVector3D m_ambienceColor;
     QVector3D m_specularColor;
-    double m_shininess;
-    double m_transparency;
+    float m_shininess;
+    float m_transparency;
     QImage m_diffuseMap;
 
     bool m_isUsingDiffuseMap;
