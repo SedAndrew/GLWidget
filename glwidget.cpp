@@ -1,10 +1,12 @@
+#include <QOpenGLFramebufferObject>
+#include <QOpenGLFunctions>
+#include <QOpenGLContext>
+#include <QMouseEvent>
+#include <QFileInfo>
+#include <QtMath>
 #include "glwidget.h"
 #include "group3d.h"
 #include <objectengine3d.h>
-#include <QMouseEvent>
-#include <QOpenGLContext>
-#include <QtMath>
-#include <QFileInfo>
 #include "camera3d.h"
 #include "skybox.h"
 #include "material.h"
@@ -14,6 +16,21 @@ GLwidget::GLwidget(QWidget *parent) :
 {
     m_camera = new Camera3D;
     m_camera->translate(QVector3D(0.0f, 0.0f, -10.0f));
+    m_fbHeight = 1024;
+    m_fbWidth = 1024;
+    m_projectionLightMatrix.setToIdentity();
+    m_projectionLightMatrix.ortho(-40, 40, -40, 40, -40, 40); // ортогональная
+
+    m_lightRotateX = 30;
+    m_lightRotateY = 40;
+
+    m_shadowLightMatrix.setToIdentity();
+    m_shadowLightMatrix.rotate(m_lightRotateX, 1.0, 0.0, 0.0); // 1-угол поворота, 2-ось
+    m_shadowLightMatrix.rotate(m_lightRotateY, 0.0, 1.0, 0.0);
+
+    m_lightMatrix.setToIdentity();
+    m_lightMatrix.rotate(-m_lightRotateY, 0.0, 1.0, 0.0);
+    m_lightMatrix.rotate(-m_lightRotateX, 1.0, 0.0, 0.0);
 }
 
 GLwidget::~GLwidget()
@@ -81,13 +98,15 @@ void GLwidget::initializeGL()
     m_transformObjects.append(m_groups[2]);
 
     m_objects.append(new ObjectEngine3D);
-    m_objects[m_objects.size() - 1]->loadObjectFromFile(":/mtl_monkey.obj");//:/BB8 New/bb9.obj");
+    m_objects[m_objects.size() - 1]->loadObjectFromFile(":/BB8 New/bb9.obj"); //:/mtl_monkey.obj");
     m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, 0.0f, 0.0f));
     m_transformObjects.append(m_objects[m_objects.size() - 1]);
 
     //m_groups[0]->addObject(m_camera);
 
     m_skybox = new SkyBox(100, QImage(":/skybox7.png"));
+
+    m_depthBuffer = new QOpenGLFramebufferObject(m_fbWidth, m_fbHeight, QOpenGLFramebufferObject::Depth);
 
     m_timer.start(30, this);
 }
@@ -102,7 +121,28 @@ void GLwidget::resizeGL(int w, int h)
 
 void GLwidget::paintGL()
 {
-//    glViewport(0, 0, width(), height());
+    // во фрейм буффер
+    m_depthBuffer->bind();
+    context()->functions()->glViewport(0, 0, m_fbWidth, m_fbHeight);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    m_programDepth.bind();
+    m_programDepth.setUniformValue("u_projectionLightMatrix", m_projectionLightMatrix);
+    m_programDepth.setUniformValue("u_shadowLightMatrix", m_shadowLightMatrix);
+
+    for (int i = 0; i < m_transformObjects.size(); i++){
+        m_transformObjects[i]->draw(&m_programDepth, context()->functions());
+    }
+    m_programDepth.release();
+    m_depthBuffer->release();
+
+    GLuint texture = m_depthBuffer->texture();
+
+    context()->functions()->glActiveTexture(GL_TEXTURE4);
+    context()->functions()->glBindTexture(GL_TEXTURE_2D, texture);
+
+    // на экран
+    context()->functions()->glViewport(0, 0, QWidget::width(), QWidget::height());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // 1. буффер цвета; 2. буффер глубины
 
     m_programSkybox.bind();
@@ -235,6 +275,15 @@ void GLwidget::initShaders()
         close();
 
     if(!m_programSkybox.link())
+        close();
+
+    if(!m_programDepth.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/depth.vsh"))
+        close();
+
+    if(!m_programDepth.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/depth.fsh"))
+        close();
+
+    if(!m_programDepth.link())
         close();
 }
 

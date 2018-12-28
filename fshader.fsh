@@ -6,9 +6,17 @@ struct materialProperty
     float shininess;
 };
 
+struct FogInfo
+{
+    float maxDist;
+    float minDist;
+    vec4 color;
+};
+
 uniform sampler2D u_diffuseMap;
 uniform sampler2D u_normalMap;
-uniform highp vec4 u_lightPosition;
+uniform sampler2D u_shadowMap;
+
 uniform highp float u_lightPower; // сила источника света
 
 uniform materialProperty u_materialProperty;
@@ -20,12 +28,10 @@ varying highp vec2 v_texcoord;
 varying highp vec3 v_normal;
 varying highp mat3 v_tbnMatrix;
 
-struct FogInfo
-{
-    float maxDist;
-    float minDist;
-    vec4 color;
-} Fog;
+varying highp vec4 v_lightDirection;
+varying highp vec4 v_positionLightMatrix;
+
+
 
 void main(void)
 {
@@ -41,7 +47,7 @@ void main(void)
    if (u_isUsingNormalMap)
     eyeVect = normalize(v_tbnMatrix * eyeVect);
   // вектор цвета (из точки 0,0,0 в точку, которую в данный момент обрабатывает фрагментный шейдер)
-   vec3 lightVect = normalize(v_position.xyz - u_lightPosition.xyz);
+   vec3 lightVect = normalize(v_lightDirection.xyz);
    if (u_isUsingNormalMap)
     lightVect = normalize(v_tbnMatrix * lightVect);
   // отраженный свет (вектор направленный из точки которую мы рассматриваем в направлении куда отразится этот свет)
@@ -65,7 +71,7 @@ void main(void)
    vec4 specularColor = vec4(0.96, 0.96, 0.73, 1.0) * u_lightPower * pow(max(0, dot(reflectLight, -eyeVect)), specularFactor);// / (1 + 0.75 * pow(len, 2));
    resultColor += specularColor * vec4(u_materialProperty.specularColor, 1.0);
 
-
+   FogInfo Fog;
    Fog.color = vec4(0.16, 0.07, 0.15, 1.0);
    Fog.maxDist = -0.06;
    Fog.minDist = 0.06;
