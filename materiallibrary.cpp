@@ -82,6 +82,8 @@ void MaterialLibrary::loadMaterialsFromFile(const QString &filename)
             newMtl->setTransparency(list[1].toFloat());
         } else if (list[0] == "map_Kd") {
             newMtl->setDiffuseMap(QString("%1/%2").arg(fileInfo.absolutePath()).arg(str.mid(7)));
+        } else if (list[0] == "map_Bump") {
+            newMtl->setNormalMap(QString("%1/%2").arg(fileInfo.absolutePath()).arg(str.mid(9)));
         }
     }
 

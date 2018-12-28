@@ -25,6 +25,10 @@ public:
     void setDiffuseMap(const QImage &imageFile);
     const QImage &diffuseMap() const;
     bool isUsingDiffuseMap() const;
+    void setNormalMap(const QString &filename);
+    void setNormalMap(const QImage &imageFile);
+    const QImage &normalMap() const;
+    bool isUsingNormalMap() const;
 
 private:
     QString m_mtlName;
@@ -34,8 +38,10 @@ private:
     float m_shininess;
     float m_transparency;
     QImage m_diffuseMap;
+    QImage m_normalMap;
 
     bool m_isUsingDiffuseMap;
+    bool m_isUsingNormalMap;
 };
 
 #endif // MATERIAL_H

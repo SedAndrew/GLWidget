@@ -7,15 +7,18 @@ struct materialProperty
 };
 
 uniform sampler2D u_diffuseMap;
+uniform sampler2D u_normalMap;
 uniform highp vec4 u_lightPosition;
 uniform highp float u_lightPower; // сила источника света
 
 uniform materialProperty u_materialProperty;
 uniform bool u_isUsingDiffuseMap;
+uniform bool u_isUsingNormalMap;
 
 varying highp vec4 v_position;
 varying highp vec2 v_texcoord;
 varying highp vec3 v_normal;
+varying highp mat3 v_tbnMatrix;
 
 struct FogInfo
 {

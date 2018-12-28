@@ -20,6 +20,8 @@ struct VertexData
     QVector3D position;
     QVector2D textCoord;
     QVector3D normal;
+    QVector3D tangent;
+    QVector3D bitangent;
 };
 
 class SimpleObject3D : public Transformational
@@ -41,6 +43,7 @@ private:
     QOpenGLBuffer m_indexBuffer; // по умолчанию вершинный буффер
 
     QOpenGLTexture *m_diffuseMap;
+    QOpenGLTexture *m_normalMap;
 
     QQuaternion m_routate;
     QVector3D m_translate;

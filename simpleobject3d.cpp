@@ -55,20 +55,37 @@ void SimpleObject3D::init(const QVector<VertexData> &vertData, const QVector<GLu
 
     m_material = material;
 
-    m_diffuseMap = new QOpenGLTexture(m_material->diffuseMap().mirrored());
+    if (m_material->isUsingDiffuseMap()) {
+        m_diffuseMap = new QOpenGLTexture(m_material->diffuseMap().mirrored());
 
-    m_diffuseMap->setMinificationFilter(QOpenGLTexture::Nearest);
-    m_diffuseMap->setMagnificationFilter(QOpenGLTexture::Linear);
-    m_diffuseMap->setWrapMode(QOpenGLTexture::Repeat);
+        m_diffuseMap->setMinificationFilter(QOpenGLTexture::Nearest);
+        m_diffuseMap->setMagnificationFilter(QOpenGLTexture::Linear);
+        m_diffuseMap->setWrapMode(QOpenGLTexture::Repeat);
+    }
 
+    if (m_material->isUsingNormalMap()) {
+        m_normalMap = new QOpenGLTexture(m_material->normalMap().mirrored());
+
+        m_normalMap->setMinificationFilter(QOpenGLTexture::Nearest);
+        m_normalMap->setMagnificationFilter(QOpenGLTexture::Linear);
+        m_normalMap->setWrapMode(QOpenGLTexture::Repeat);
+    }
 }
 
 void SimpleObject3D::draw(QOpenGLShaderProgram *program, QOpenGLFunctions *functions)
 {
     if (!m_vertexBuffer.isCreated() || !m_indexBuffer.isCreated()) return;
 
-    m_diffuseMap->bind(0);
-    program->setUniformValue("u_diffuseMap", 0);
+    //diffmap, noralmap, ambiencemap, specularmap etc
+    if (m_material->isUsingDiffuseMap()) {
+        m_diffuseMap->bind(0);
+        program->setUniformValue("u_diffuseMap", 0);
+    }
+    if (m_material->isUsingNormalMap()) {
+        m_normalMap->bind(1);
+        program->setUniformValue("u_normalMap", 1);
+    }
+
 
     QMatrix4x4 modelMatrix;
     modelMatrix.setToIdentity();
@@ -83,7 +100,7 @@ void SimpleObject3D::draw(QOpenGLShaderProgram *program, QOpenGLFunctions *funct
     program->setUniformValue("u_materialProperty.specularColor", m_material->specularColor());
     program->setUniformValue("u_materialProperty.shininess", m_material->shininess());
     program->setUniformValue("u_isUsingDiffuseMap", m_material->isUsingDiffuseMap());
-//    program->setUniformValue("u_isUsingNormalMap", m_material->isUsingNormalMap());
+    program->setUniformValue("u_isUsingNormalMap", m_material->isUsingNormalMap());
 
     m_vertexBuffer.bind();
 
@@ -107,13 +124,27 @@ void SimpleObject3D::draw(QOpenGLShaderProgram *program, QOpenGLFunctions *funct
     program->enableAttributeArray(normLoc);
     program->setAttributeBuffer(normLoc, GL_FLOAT, offset, 3, sizeof(VertexData));
 
+    offset += sizeof(QVector3D);
+
+    int tangentLoc =  program->attributeLocation("a_tangent");
+    program->enableAttributeArray(tangentLoc);
+    program->setAttributeBuffer(tangentLoc, GL_FLOAT, offset, 3, sizeof(VertexData));
+
+    offset += sizeof(QVector3D);
+
+    int bitangentLoc =  program->attributeLocation("a_bitangent");
+    program->enableAttributeArray(bitangentLoc);
+    program->setAttributeBuffer(bitangentLoc, GL_FLOAT, offset, 3, sizeof(VertexData));
+
     m_indexBuffer.bind();
 
     functions->glDrawElements(GL_TRIANGLES, m_indexBuffer.size(), GL_UNSIGNED_INT, 0);
 
     m_vertexBuffer.release();
     m_indexBuffer.release();
-    m_diffuseMap->release();
+
+    if (m_material->isUsingDiffuseMap()) m_diffuseMap->release();
+    if (m_material->isUsingNormalMap()) m_normalMap->release();
 
 }
 
