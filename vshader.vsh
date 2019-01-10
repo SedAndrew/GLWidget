@@ -46,8 +46,8 @@ void main(void)
  // передача текстурных координат во фрагметный шейдер
     v_texcoord = a_texcoord;
     v_normal = normalize(vec3(mv_matrix * vec4(a_normal, 0.0)));
-    v_position = normalize(a_position);
-//    v_position = normalize(mv_matrix * a_position); // прототип normalize
+//    v_position = normalize(a_position);
+    v_position = normalize(mv_matrix * a_position); // прототип normalize
 
     vec3 tangent   = normalize(vec4(mv_matrix * vec4(a_tangent, 0.0)).xyz);
     vec3 bitangent = normalize(vec4(mv_matrix * vec4(a_bitanget, 0.0)).xyz);

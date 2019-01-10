@@ -64,7 +64,7 @@ void MaterialLibrary::loadMaterialsFromFile(const QString &filename)
         QString str = m_inputStream.readLine();
         QStringList list = str.split(" ");
         if (list[0] == "#") {
-            qDebug() << "This is comment: " << str;
+//            qDebug() << "This is comment: " << str;
             continue;
         } else if (list[0] == "newmtl") {
             addMaterial(newMtl);

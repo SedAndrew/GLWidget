@@ -57,7 +57,6 @@ void SimpleObject3D::init(const QVector<VertexData> &vertData, const QVector<GLu
 
     if (m_material->isUsingDiffuseMap()) {
         m_diffuseMap = new QOpenGLTexture(m_material->diffuseMap().mirrored());
-
         m_diffuseMap->setMinificationFilter(QOpenGLTexture::Nearest);
         m_diffuseMap->setMagnificationFilter(QOpenGLTexture::Linear);
         m_diffuseMap->setWrapMode(QOpenGLTexture::Repeat);
@@ -65,7 +64,6 @@ void SimpleObject3D::init(const QVector<VertexData> &vertData, const QVector<GLu
 
     if (m_material->isUsingNormalMap()) {
         m_normalMap = new QOpenGLTexture(m_material->normalMap().mirrored());
-
         m_normalMap->setMinificationFilter(QOpenGLTexture::Nearest);
         m_normalMap->setMagnificationFilter(QOpenGLTexture::Linear);
         m_normalMap->setWrapMode(QOpenGLTexture::Repeat);

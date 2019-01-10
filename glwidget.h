@@ -37,8 +37,9 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
     void initShaders();
+    void initPolyhedrom(float width, float height, float depth, QImage *diffuseMap = 0, QImage *normalMap = 0);
     void initCube(float width);
-    void initCristal(float underside, float height);
+    void initCristal(float underside, float height, QImage *diffuseMap = 0, QImage *normalMap = 0);
 
     void addObject(ObjectEngine3D *object);
 

@@ -11,7 +11,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd MonkeyBlue.jpg
-map_Bump 5406-normal.jpg
+# map_Bump 5406-normal.jpg
 
 newmtl Material_Wool
 Ns 94.117647

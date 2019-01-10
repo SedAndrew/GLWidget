@@ -92,8 +92,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_bluetooth.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_bluetooth_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_bootstrap_private.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_charts.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_charts_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_clucene_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_concurrent.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_concurrent_private.pri \
@@ -111,8 +109,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_fb_support_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_fontdatabase_support_private.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gamepad.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gamepad_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gui.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gui_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_help.pri \
@@ -125,8 +121,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_multimediawidgets_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_network.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_network_private.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_networkauth.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_networkauth_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_nfc.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_nfc_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_opengl.pri \
@@ -139,8 +133,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_positioning_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_printsupport.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_printsupport_private.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_purchasing.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_purchasing_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qml.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qml_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qmldebug_private.pri \
@@ -156,10 +148,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quicktemplates2_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickwidgets.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickwidgets_private.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_script.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_script_private.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scripttools.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scripttools_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scxml.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scxml_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_sensors.pri \
@@ -174,8 +162,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_svg_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_testlib.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_testlib_private.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_texttospeech.pri \
-		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_texttospeech_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_theme_support_private.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_uiplugin.pri \
 		../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_uitools.pri \
@@ -259,8 +245,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_bluetooth.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_bluetooth_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_bootstrap_private.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_charts.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_charts_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_clucene_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_concurrent.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_concurrent_private.pri:
@@ -278,8 +262,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_fb_support_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_fontdatabase_support_private.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gamepad.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gamepad_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gui.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gui_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_help.pri:
@@ -292,8 +274,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_multimediawidgets_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_network.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_network_private.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_networkauth.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_networkauth_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_nfc.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_nfc_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_opengl.pri:
@@ -306,8 +286,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_positioning_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_printsupport.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_printsupport_private.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_purchasing.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_purchasing_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qml.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qml_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qmldebug_private.pri:
@@ -323,10 +301,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quicktemplates2_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickwidgets.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickwidgets_private.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_script.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_script_private.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scripttools.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scripttools_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scxml.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scxml_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_sensors.pri:
@@ -341,8 +315,6 @@ Makefile: GLWidget.pro ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmak
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_svg_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_testlib.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_testlib_private.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_texttospeech.pri:
-../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_texttospeech_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_theme_support_private.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_uiplugin.pri:
 ../../../../Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_uitools.pri:

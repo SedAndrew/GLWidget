@@ -1,0 +1,17 @@
+INPUT(
+./debug\qrc_textures.o
+./debug\qrc_shaders.o
+./debug\qrc_skybox.o
+./debug\qrc_modeles.o
+./debug\main.o
+./debug\mainwindow.o
+./debug\glwidget.o
+./debug\simpleobject3d.o
+./debug\camera3d.o
+./debug\group3d.o
+./debug\skybox.o
+./debug\material.o
+./debug\materiallibrary.o
+./debug\objectengine3d.o
+./debug\moc_mainwindow.o
+);

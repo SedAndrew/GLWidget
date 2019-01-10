@@ -11,7 +11,7 @@ Ni 1.500000
 d 1.000000
 illum 2
 map_Kd head top bump line.jpg
-map_Bump RadialCracks_N.jpg
+# map_Bump RadialCracks_N.jpg
 
 newmtl Material__61.002
 Ns 9.803922
@@ -23,7 +23,7 @@ Ni 1.500000
 d 1.000000
 illum 2
 map_Kd Head ring bump line.jpg
-map_Bump RadialCracks_N.jpg
+# map_Bump RadialCracks_N.jpg
 
 newmtl Material__61.002_NONE
 Ns 9.803922
@@ -35,7 +35,7 @@ Ni 1.500000
 d 1.000000
 illum 2
 map_Kd Head ring bump line.jpg
-map_Bump RadialCracks_N.jpg
+# map_Bump RadialCracks_N.jpg
 
 newmtl Material__61.003
 Ns 9.803922
@@ -47,7 +47,7 @@ Ni 1.500000
 d 1.000000
 illum 2
 map_Kd white dirt map.jpg
-map_Bump tiled-metal-normal.png
+# map_Bump tiled-metal-normal.png
 
 newmtl Material__61.003_wildtextures-metal-sheet-scratched-brushed.jpg
 Ns 9.803922
@@ -82,7 +82,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd BODY self ill MAP.jpg
-map_Bump RadialCracks_N.jpg
+# map_Bump RadialCracks_N.jpg
 
 newmtl wire_028149177.003
 Ns 31.372549
@@ -94,8 +94,8 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd BODY bump MAP.jpg
-#map_Bump metall-normal.jpg
-map_Bump normal.jpg
+# map_Bump metall-normal.jpg
+# map_Bump normal.jpg
 
 newmtl wire_028149177_NONE
 Ns 31.372549
@@ -107,7 +107,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd BODY self ill MAP.jpg
-map_Bump RadialCracks_N.jpg
+# map_Bump RadialCracks_N.jpg
 
 newmtl wire_153228153.003
 Ns 31.372549
@@ -119,4 +119,4 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd HEAD bump MAP.jpg
-map_Bump metall.jpeg
+# map_Bump metall.jpeg

@@ -15,7 +15,7 @@ GLwidget::GLwidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
     m_camera = new Camera3D;
-    m_camera->translate(QVector3D(0.0f, 0.0f, -10.0f));
+    m_camera->translate(QVector3D(0.0f, 0.0f, -20.0f));
     m_fbHeight = 1024;
     m_fbWidth = 1024;
     m_projectionLightMatrix.setToIdentity();
@@ -47,7 +47,6 @@ GLwidget::~GLwidget()
 
 void GLwidget::initializeGL()
 {
-    //initializeOpenGLFunctions();
     glClearColor(0.02f, 0.03f, 0.1f, 1.0f);
 
     glEnable(GL_DEPTH_TEST); //буффер глубины
@@ -56,6 +55,7 @@ void GLwidget::initializeGL()
     initShaders();
 
     float step = 2.0f;
+    float x = 0.0f, y = 0.0f, z = 0.0f;
 
     /*
     m_groups.append(new Group3D);
@@ -66,29 +66,34 @@ void GLwidget::initializeGL()
     m_transformObjects.append(m_groups[0]);
     */
 
+    QImage diffuseMapCube(":/cube5.png");
+
     m_groups.append(new Group3D);
-    for (float x = -step; x <= step; x += step) {
-        for (float y = -step; y <= step; y += step) {
-            for (float z = -step; z <= step; z += step) {
-                initCube(1.0f);
+//    for (float x = -step; x <= step; x += step) {
+//        for (float y = -step; y <= step; y += step) {
+//            for (float z = -step; z <= step; z += step) {
+                //initPolyhedrom(1.0f, 1.0f, 1.0f, &diffuseMapCube);
+                m_objects.append(new ObjectEngine3D);
+                m_objects[m_objects.size() - 1]->loadObjectFromFile(":/mtl_monkey.obj");
                 m_objects[m_objects.size() - 1]->translate(QVector3D(x, y, z));
                 m_groups[m_groups.size() - 1]->addObject(m_objects[m_objects.size() - 1]);
-            }
-        }
-    }
+//            }
+//        }
+//    }
     m_groups[0]->translate(QVector3D(-8.0f, 0.0f, 0.0f));
 
     m_groups.append(new Group3D);
-    for (float x = -step; x <= step; x += step) {
-        for (float y = -step; y <= step; y += step) {
-            for (float z = -step; z <= step; z += step) {
-//                initCube(1.0f);
-                initCristal(0.65f, 2.6f);
+//    for (float x = -step; x <= step; x += step) {
+//        for (float y = -step; y <= step; y += step) {
+//            for (float z = -step; z <= step; z += step) {
+                m_objects.append(new ObjectEngine3D);
+                m_objects[m_objects.size() - 1]->loadObjectFromFile(":/BB8 New/bb9.obj"); //initCube(1.0f);
+                //initCristal(0.65f, 2.6f);
                 m_objects[m_objects.size() - 1]->translate(QVector3D(x, y, z));
                 m_groups[m_groups.size() - 1]->addObject(m_objects[m_objects.size() - 1]);
-            }
-        }
-    }
+//            }
+//        }
+//    }
     m_groups[1]->translate(QVector3D(8.0f, 0.0f, 0.0f));
 
     m_groups.append(new Group3D);
@@ -97,9 +102,19 @@ void GLwidget::initializeGL()
 
     m_transformObjects.append(m_groups[2]);
 
+    QImage cristal(":/sots.png");
+    initCristal(0.65f, 2.6f, &cristal);
+    m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, 4.8f, 0.4f));
+    m_transformObjects.append(m_objects[m_objects.size() - 1]);
+
     m_objects.append(new ObjectEngine3D);
     m_objects[m_objects.size() - 1]->loadObjectFromFile(":/BB8 New/bb9.obj"); //:/mtl_monkey.obj");
     m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, 0.0f, 0.0f));
+    m_transformObjects.append(m_objects[m_objects.size() - 1]);
+
+    QImage tmp(":/cube.png");
+    initPolyhedrom(40.0f, 1.0f, 40.f, &tmp);
+    m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, -2.5f, 0.0f));
     m_transformObjects.append(m_objects[m_objects.size() - 1]);
 
     //m_groups[0]->addObject(m_camera);
@@ -153,12 +168,16 @@ void GLwidget::paintGL()
     m_programSkybox.release();
 
     m_program.bind();
+    m_program.setUniformValue("u_shadowMap", GL_TEXTURE4 - GL_TEXTURE0);
     m_program.setUniformValue("u_projectionMatrix", m_projectionMatrix);
-    m_program.setUniformValue("u_lightPosition", QVector4D(4.0, 4.0, 4.0, 1.0));
+    m_program.setUniformValue("u_lightDirection", QVector4D(0.0, 0.0, -1.0, 0.0));
+    m_program.setUniformValue("u_projectionLightMatrix", m_projectionLightMatrix);
+    m_program.setUniformValue("u_shadowLightMatrix", m_shadowLightMatrix);
+    m_program.setUniformValue("u_lightMatrix", m_lightMatrix);
     m_program.setUniformValue("u_lightPower", 1.4f);
 
     m_camera->draw(&m_program);
-    for (int i = 0; i < m_transformObjects.size(); i++){
+    for (int i = 0; i < m_transformObjects.size(); i++) {
         m_transformObjects[i]->draw(&m_program, context()->functions());
     }
     m_program.release();
@@ -192,10 +211,10 @@ void GLwidget::mouseMoveEvent(QMouseEvent *event)
 void GLwidget::wheelEvent(QWheelEvent *event)
 {
     if ( event->delta() > 0) {
-        m_camera->translate(QVector3D(0.0f, 0.0f, 0.25f));
+        m_camera->translate(QVector3D(0.0f, 0.0f, 0.55f));
     }
     else if (event->delta() < 0) {
-        m_camera->translate(QVector3D(0.0f, 0.0f, -0.25f));
+        m_camera->translate(QVector3D(0.0f, 0.0f, -0.55f));
     }
     update();
 }
@@ -203,7 +222,7 @@ void GLwidget::wheelEvent(QWheelEvent *event)
 void GLwidget::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
-    for (int i = 0; i < m_objects.size()-1; i++){
+    for (int i = 0; i < m_objects.size()-2; i++){
         if ( i%2 == 0 ) {
             m_objects[i]->rotate(QQuaternion::fromAxisAndAngle(1.0f, 0.0f, 0.0f, qSin(angleObject)));
             m_objects[i]->rotate(QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, qCos(angleObject)));
@@ -287,6 +306,73 @@ void GLwidget::initShaders()
         close();
 }
 
+void GLwidget::initPolyhedrom(float width, float height, float depth, QImage *diffuseMap, QImage *normalMap)
+{
+    float width_div_2 = width/2.0f;
+    float height_div_2 = height/2.0f;
+    float depth_div_2 = depth/2.0f;
+    QVector<VertexData> vertexes;
+    vertexes.append(VertexData(QVector3D(-width_div_2,height_div_2,depth_div_2),QVector2D(0.0,1.0),QVector3D(0.0,0.0,1.0)));//Добавляем все вершины, используя конструктор
+    vertexes.append(VertexData(QVector3D(-width_div_2,-height_div_2,depth_div_2),QVector2D(0.0,0.0),QVector3D(0.0,0.0,1.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,height_div_2,depth_div_2),QVector2D(1.0,1.0),QVector3D(0.0,0.0,1.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,-height_div_2,depth_div_2),QVector2D(1.0,0.0),QVector3D(0.0,0.0,1.0)));
+
+    vertexes.append(VertexData(QVector3D(width_div_2,height_div_2,depth_div_2),QVector2D(0.0,1.0),QVector3D(1.0,0.0,0.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,-height_div_2,depth_div_2),QVector2D(0.0,0.0),QVector3D(1.0,0.0,0.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,height_div_2,-depth_div_2),QVector2D(1.0,1.0),QVector3D(1.0,0.0,0.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,-height_div_2,-depth_div_2),QVector2D(1.0,0.0),QVector3D(1.0,0.0,0.0)));
+
+    vertexes.append(VertexData(QVector3D(width_div_2,height_div_2,depth_div_2),QVector2D(0.0,1.0),QVector3D(0.0,1.0,0.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,height_div_2,-depth_div_2),QVector2D(0.0,0.0),QVector3D(0.0,1.0,0.0)));
+    vertexes.append(VertexData(QVector3D(-width_div_2,height_div_2,depth_div_2),QVector2D(1.0,1.0),QVector3D(0.0,1.0,0.0)));
+    vertexes.append(VertexData(QVector3D(-width_div_2,height_div_2,-depth_div_2),QVector2D(1.0,0.0),QVector3D(0.0,1.0,0.0)));
+
+    vertexes.append(VertexData(QVector3D(width_div_2,height_div_2,-depth_div_2),QVector2D(0.0,1.0),QVector3D(0.0,0.0,-1.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,-height_div_2,-depth_div_2),QVector2D(0.0,0.0),QVector3D(0.0,0.0,-1.0)));
+    vertexes.append(VertexData(QVector3D(-width_div_2,height_div_2,-depth_div_2),QVector2D(1.0,1.0),QVector3D(0.0,0.0,-1.0)));
+    vertexes.append(VertexData(QVector3D(-width_div_2,-height_div_2,-depth_div_2),QVector2D(1.0,0.0),QVector3D(0.0,0.0,-1.0)));
+
+    vertexes.append(VertexData(QVector3D(-width_div_2,height_div_2,depth_div_2),QVector2D(0.0,1.0),QVector3D(-1.0,0.0,0.0)));
+    vertexes.append(VertexData(QVector3D(-width_div_2,height_div_2,-depth_div_2),QVector2D(0.0,0.0),QVector3D(-1.0,0.0,0.0)));
+    vertexes.append(VertexData(QVector3D(-width_div_2,-height_div_2,depth_div_2),QVector2D(1.0,1.0),QVector3D(-1.0,0.0,0.0)));
+    vertexes.append(VertexData(QVector3D(-width_div_2,-height_div_2,-depth_div_2),QVector2D(1.0,0.0),QVector3D(-1.0,0.0,0.0)));
+
+    vertexes.append(VertexData(QVector3D(-width_div_2,-height_div_2,depth_div_2),QVector2D(0.0,1.0),QVector3D(0.0,-1.0,0.0)));
+    vertexes.append(VertexData(QVector3D(-width_div_2,-height_div_2,-depth_div_2),QVector2D(0.0,0.0),QVector3D(0.0,-1.0,0.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,-height_div_2,depth_div_2),QVector2D(1.0,1.0),QVector3D(0.0,-1.0,0.0)));
+    vertexes.append(VertexData(QVector3D(width_div_2,-height_div_2,-depth_div_2),QVector2D(1.0,0.0),QVector3D(0.0,-1.0,0.0)));
+
+    QVector<GLuint> indexes;//Массив индексов
+    for(int i=0;i<24;i+=4)
+    {
+        indexes.push_back(i+0);
+        indexes.push_back(i+1);
+        indexes.push_back(i+2);
+        indexes.push_back(i+2);
+        indexes.push_back(i+1);
+        indexes.push_back(i+3);
+    }
+
+    Material *newMtl = new Material;
+    if (diffuseMap)
+        newMtl->setDiffuseMap(*diffuseMap);
+    if (normalMap)
+        newMtl->setNormalMap(*normalMap);
+
+    newMtl->setShininess(96);
+    newMtl->setDiffuseColor(QVector3D(1.0, 1.0, 1.0));//белый цвет
+    newMtl->setAmbienceColor(QVector3D(1.0, 1.0, 1.0));
+    newMtl->setSpecularColor(QVector3D(1.0, 1.0, 1.0));
+
+    ObjectEngine3D *newObj = new ObjectEngine3D;
+    //Инициализируем вершины
+    newObj->calculateTBN(vertexes);
+    newObj->addObject(new SimpleObject3D(vertexes, indexes, newMtl));
+
+    m_objects.append(newObj);
+
+}
+
 void GLwidget::initCube(float width)
 {
     float width_diw_2 = width / 2.0f;
@@ -357,7 +443,7 @@ void GLwidget::initCube(float width)
     m_objects.append(newObj);
 }
 
-void GLwidget::initCristal(float underside, float height)
+void GLwidget::initCristal(float underside, float height, QImage *diffuseMap, QImage *normalMap)
 {
     float height_diw_2 = height / 2.0f;
     float hTriangle = sqrt(0.75f * underside * underside);
@@ -496,8 +582,12 @@ void GLwidget::initCristal(float underside, float height)
     }
 
     Material *newMtl = new Material;
-    newMtl->setDiffuseMap(":/sots.png");
+    if (diffuseMap)
+        newMtl->setDiffuseMap(*diffuseMap);
+    if (normalMap)
+        newMtl->setNormalMap(*normalMap);
 //    newMtl->setNormalMap(":/5406-normal.jpg");
+
     newMtl->setShininess(96);
     newMtl->setDiffuseColor(QVector3D(1.0, 1.0, 1.0));
     newMtl->setAmbienceColor(QVector3D(1.0, 1.0, 1.0));
@@ -505,7 +595,7 @@ void GLwidget::initCristal(float underside, float height)
     newMtl->setTransparency(1.0);
 
     ObjectEngine3D *newObj = new ObjectEngine3D;
-//    newObj->calculateTBN(vertexes);
+    newObj->calculateTBN(vertexes);
     newObj->addObject(new SimpleObject3D(vertexes, indexes, newMtl));
 
     m_objects.append(newObj);

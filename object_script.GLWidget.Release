@@ -1,0 +1,17 @@
+INPUT(
+./release\qrc_textures.o
+./release\qrc_shaders.o
+./release\qrc_skybox.o
+./release\qrc_modeles.o
+./release\main.o
+./release\mainwindow.o
+./release\glwidget.o
+./release\simpleobject3d.o
+./release\camera3d.o
+./release\group3d.o
+./release\skybox.o
+./release\material.o
+./release\materiallibrary.o
+./release\objectengine3d.o
+./release\moc_mainwindow.o
+);
