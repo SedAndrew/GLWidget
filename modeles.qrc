@@ -6,5 +6,9 @@
         <file>MonkeySimple.obj</file>
         <file>BB8 New/bb9.mtl</file>
         <file>BB8 New/bb9.obj</file>
+        <file>BB8 New/bb10obj.mtl</file>
+        <file>BB8 New/bb10obj.obj</file>
+        <file>BB8 New/bb11.mtl</file>
+        <file>BB8 New/bb11.obj</file>
     </qresource>
 </RCC>

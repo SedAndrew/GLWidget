@@ -19,6 +19,10 @@ public:
 private slots:
     void on_actionOpen_file_triggered();
 
+    void on_checkBox_transparency_clicked();
+
+    void on_horizontalSlider_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
 

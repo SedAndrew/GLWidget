@@ -1,7 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "global.h"
 
 #include <QFileDialog>
+
+bool f_transparency;
+bool f_spotlights;
+int m_transparencyPower;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->widgetGL->setFocus();
+    ui->widget_ss->setVisible(false);
 
     setCurrentFileName(QString());
 }
@@ -20,6 +26,7 @@ MainWindow::~MainWindow()
 
 bool MainWindow::load(const QString &f)
 {
+    Q_UNUSED (f)
 /*    if (!QFile::exists(f))
         return false;
     QFile file(f);
@@ -27,11 +34,13 @@ bool MainWindow::load(const QString &f)
         return false;
 
     setCurrentFileName(f);
-    return true;*/
+    return true;
+*/
 }
 
 void MainWindow::setCurrentFileName(const QString &fileName)
 {
+    Q_UNUSED (fileName)
    /* this->fileName = fileName;
 
     QString shownName;
@@ -58,3 +67,13 @@ void MainWindow::getFile()
 }
 
 
+
+void MainWindow::on_checkBox_transparency_clicked()
+{
+    ::f_transparency = true;
+}
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+    ::m_transparencyPower = value;
+}

@@ -18,6 +18,7 @@ uniform sampler2D u_normalMap;
 uniform sampler2D u_shadowMap;
 
 uniform highp float u_lightPower; // сила источника света
+uniform highp int u_transparencyPower; // коэфицент прозрачности
 
 uniform materialProperty u_materialProperty;
 uniform bool u_isUsingDiffuseMap;

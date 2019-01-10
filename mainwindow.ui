@@ -18,6 +18,21 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>1</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>3</number>
+    </property>
+    <property name="rightMargin">
+     <number>3</number>
+    </property>
+    <property name="bottomMargin">
+     <number>3</number>
+    </property>
     <item>
      <widget class="GLwidget" name="widgetGL" native="true"/>
     </item>
@@ -48,8 +63,100 @@
       <property name="title">
        <string>Configurations</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QCheckBox" name="checkBox_transparency">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Прозрачность</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_ss" native="true">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="mouseTracking">
+          <bool>false</bool>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QSlider" name="horizontalSlider">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_spotlights">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Прожектора</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -62,8 +169,8 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="pushButton">
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QPushButton" name="pushButton_close">
          <property name="minimumSize">
           <size>
            <width>80</width>
@@ -135,7 +242,6 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen_file">
    <property name="text">
     <string>Open file...</string>
@@ -154,18 +260,66 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>pushButton_close</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>734</x>
-     <y>490</y>
+     <x>795</x>
+     <y>533</y>
     </hint>
     <hint type="destinationlabel">
      <x>647</x>
      <y>486</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>764</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>807</x>
+     <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>759</x>
+     <y>127</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transparency</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget_ss</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>715</x>
+     <y>90</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>784</x>
+     <y>114</y>
     </hint>
    </hints>
   </connection>

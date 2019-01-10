@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QtMath>
 #include "glwidget.h"
+#include "global.h"
 #include "group3d.h"
 #include <objectengine3d.h>
 #include "camera3d.h"
@@ -18,6 +19,12 @@ GLwidget::GLwidget(QWidget *parent) :
     m_camera->translate(QVector3D(0.0f, 0.0f, -20.0f));
     m_fbHeight = 1024;
     m_fbWidth = 1024;
+
+    angleObject = 0.0f;
+    angleGroup1 = 0.0f;
+    angleGroup2 = 0.0f;
+    angleMain = 0.0f;
+
     m_projectionLightMatrix.setToIdentity();
     m_projectionLightMatrix.ortho(-40, 40, -40, 40, -40, 40); // ортогональная
 
@@ -104,11 +111,11 @@ void GLwidget::initializeGL()
 
     QImage cristal(":/sots.png");
     initCristal(0.65f, 2.6f, &cristal);
-    m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, 4.8f, 0.4f));
+    m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, 4.8f, 0.0f));
     m_transformObjects.append(m_objects[m_objects.size() - 1]);
 
     m_objects.append(new ObjectEngine3D);
-    m_objects[m_objects.size() - 1]->loadObjectFromFile(":/BB8 New/bb9.obj"); //:/mtl_monkey.obj");
+    m_objects[m_objects.size() - 1]->loadObjectFromFile(":/BB8 New/bb11.obj"); //:/mtl_monkey.obj");
     m_objects[m_objects.size() - 1]->translate(QVector3D(0.0f, 0.0f, 0.0f));
     m_transformObjects.append(m_objects[m_objects.size() - 1]);
 
@@ -175,6 +182,7 @@ void GLwidget::paintGL()
     m_program.setUniformValue("u_shadowLightMatrix", m_shadowLightMatrix);
     m_program.setUniformValue("u_lightMatrix", m_lightMatrix);
     m_program.setUniformValue("u_lightPower", 1.4f);
+    m_program.setUniformValue("u_transparencyPower", ::m_transparencyPower);
 
     m_camera->draw(&m_program);
     for (int i = 0; i < m_transformObjects.size(); i++) {

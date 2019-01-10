@@ -51,7 +51,8 @@ HEADERS  += mainwindow.h \
     skybox.h \
     material.h \
     materiallibrary.h \
-    objectengine3d.h
+    objectengine3d.h \
+    global.h
 
 FORMS    += \
     mainwindow.ui
