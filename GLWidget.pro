@@ -40,7 +40,9 @@ SOURCES += main.cpp\
     skybox.cpp \
     material.cpp \
     materiallibrary.cpp \
-    objectengine3d.cpp
+    objectengine3d.cpp \
+    light.cpp \
+    lightwidget.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -52,7 +54,9 @@ HEADERS  += mainwindow.h \
     material.h \
     materiallibrary.h \
     objectengine3d.h \
-    global.h
+    global.h \
+    light.h \
+    lightwidget.h
 
 FORMS    += \
     mainwindow.ui

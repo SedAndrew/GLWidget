@@ -13,7 +13,6 @@ void Group3D::draw(QOpenGLShaderProgram *program, QOpenGLFunctions *functions)
     }
 }
 
-
 void Group3D::rotate(const QQuaternion &r)
 {
     m_routate = r * m_routate;

@@ -67,7 +67,7 @@ SkyBox::SkyBox(float width, const QImage &texture)
     newMtl->setDiffuseColor(QVector3D(1.0, 1.0, 1.0));
     newMtl->setAmbienceColor(QVector3D(1.0, 1.0, 1.0));
     newMtl->setSpecularColor(QVector3D(1.0, 1.0, 1.0));  
-    newMtl->setTransparency(1.0);
+    newMtl->setTransparency(1);
 
     m_cube = new SimpleObject3D(vertexes, indexes, newMtl);
 

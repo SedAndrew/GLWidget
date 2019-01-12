@@ -69,12 +69,6 @@ void ObjectEngine3D::loadObjectFromFile(const QString &filename)
         calculateTBN(vertexes);
         object->init(vertexes, indexes, m_materialLibrary.getMaterial(mtlName)); //QImage(list[1]));
     }
-/*
-    if (object) {
-//        calculateTBN(vertexes);
-        object->init(vertexes, indexes, QImage(mtlName));
-    }
-    */
     addObject(object);
     objFile.close();
 }

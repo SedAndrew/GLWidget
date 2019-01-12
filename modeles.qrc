@@ -10,5 +10,8 @@
         <file>BB8 New/bb10obj.obj</file>
         <file>BB8 New/bb11.mtl</file>
         <file>BB8 New/bb11.obj</file>
+        <file>Human_body/human2.mtl</file>
+        <file>Human_body/MonkeyBlue.jpg</file>
+        <file>Human_body/human2.obj</file>
     </qresource>
 </RCC>

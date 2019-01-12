@@ -13,5 +13,8 @@ INPUT(
 ./release\material.o
 ./release\materiallibrary.o
 ./release\objectengine3d.o
+./release\light.o
+./release\lightwidget.o
 ./release\moc_mainwindow.o
+./release\moc_lightwidget.o
 );

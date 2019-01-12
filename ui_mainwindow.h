@@ -30,6 +30,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "glwidget.h"
+#include "lightwidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -41,14 +42,20 @@ public:
     QHBoxLayout *horizontalLayout;
     GLwidget *widgetGL;
     QGroupBox *gB_Config;
-    QVBoxLayout *verticalLayout;
+    QVBoxLayout *verticalLayout_2;
     QCheckBox *checkBox_transparency;
     QWidget *widget_ss;
     QGridLayout *gridLayout;
     QHBoxLayout *horizontalLayout_2;
     QSlider *horizontalSlider;
     QSpinBox *spinBox;
-    QCheckBox *checkBox_spotlights;
+    QCheckBox *checkBox_light;
+    LightWidget *widget_light;
+    QGridLayout *gridLayout_2;
+    QVBoxLayout *verticalLayout;
+    QCheckBox *checkBox_directionLight;
+    QCheckBox *checkBox_pointLight;
+    QCheckBox *checkBox_spotLight;
     QSpacerItem *verticalSpacer;
     QPushButton *pushButton_close;
     QMenuBar *menuBar;
@@ -85,10 +92,10 @@ public:
         font.setKerning(true);
         gB_Config->setFont(font);
         gB_Config->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
-        verticalLayout = new QVBoxLayout(gB_Config);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout_2 = new QVBoxLayout(gB_Config);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         checkBox_transparency = new QCheckBox(gB_Config);
         checkBox_transparency->setObjectName(QStringLiteral("checkBox_transparency"));
         QFont font1;
@@ -96,7 +103,7 @@ public:
         checkBox_transparency->setFont(font1);
         checkBox_transparency->setChecked(false);
 
-        verticalLayout->addWidget(checkBox_transparency);
+        verticalLayout_2->addWidget(checkBox_transparency);
 
         widget_ss = new QWidget(gB_Config);
         widget_ss->setObjectName(QStringLiteral("widget_ss"));
@@ -107,7 +114,7 @@ public:
         gridLayout->setSpacing(0);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
+        gridLayout->setContentsMargins(18, 0, 0, 0);
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
@@ -132,33 +139,70 @@ public:
         gridLayout->addLayout(horizontalLayout_2, 0, 0, 1, 1);
 
 
-        verticalLayout->addWidget(widget_ss);
+        verticalLayout_2->addWidget(widget_ss);
 
-        checkBox_spotlights = new QCheckBox(gB_Config);
-        checkBox_spotlights->setObjectName(QStringLiteral("checkBox_spotlights"));
-        checkBox_spotlights->setFont(font1);
+        checkBox_light = new QCheckBox(gB_Config);
+        checkBox_light->setObjectName(QStringLiteral("checkBox_light"));
+        checkBox_light->setFont(font1);
 
-        verticalLayout->addWidget(checkBox_spotlights);
+        verticalLayout_2->addWidget(checkBox_light);
+
+        widget_light = new LightWidget(gB_Config);
+        widget_light->setObjectName(QStringLiteral("widget_light"));
+        gridLayout_2 = new QGridLayout(widget_light);
+        gridLayout_2->setSpacing(0);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout_2->setContentsMargins(18, 0, 0, 0);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        checkBox_directionLight = new QCheckBox(widget_light);
+        checkBox_directionLight->setObjectName(QStringLiteral("checkBox_directionLight"));
+        QFont font2;
+        font2.setPointSize(10);
+        checkBox_directionLight->setFont(font2);
+        checkBox_directionLight->setChecked(false);
+
+        verticalLayout->addWidget(checkBox_directionLight);
+
+        checkBox_pointLight = new QCheckBox(widget_light);
+        checkBox_pointLight->setObjectName(QStringLiteral("checkBox_pointLight"));
+        checkBox_pointLight->setFont(font2);
+
+        verticalLayout->addWidget(checkBox_pointLight);
+
+        checkBox_spotLight = new QCheckBox(widget_light);
+        checkBox_spotLight->setObjectName(QStringLiteral("checkBox_spotLight"));
+        checkBox_spotLight->setFont(font2);
+
+        verticalLayout->addWidget(checkBox_spotLight);
+
+
+        gridLayout_2->addLayout(verticalLayout, 0, 0, 1, 1);
+
+
+        verticalLayout_2->addWidget(widget_light);
 
         verticalSpacer = new QSpacerItem(20, 397, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout->addItem(verticalSpacer);
+        verticalLayout_2->addItem(verticalSpacer);
 
         pushButton_close = new QPushButton(gB_Config);
         pushButton_close->setObjectName(QStringLiteral("pushButton_close"));
         pushButton_close->setMinimumSize(QSize(80, 23));
         pushButton_close->setMaximumSize(QSize(80, 23));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Arial"));
-        font2.setPointSize(9);
-        pushButton_close->setFont(font2);
+        QFont font3;
+        font3.setFamily(QStringLiteral("Arial"));
+        font3.setPointSize(9);
+        pushButton_close->setFont(font3);
         pushButton_close->setFocusPolicy(Qt::StrongFocus);
         pushButton_close->setToolTipDuration(-1);
         pushButton_close->setLayoutDirection(Qt::LeftToRight);
         pushButton_close->setAutoDefault(false);
         pushButton_close->setFlat(false);
 
-        verticalLayout->addWidget(pushButton_close, 0, Qt::AlignHCenter);
+        verticalLayout_2->addWidget(pushButton_close, 0, Qt::AlignHCenter);
 
 
         horizontalLayout->addWidget(gB_Config);
@@ -182,6 +226,7 @@ public:
         QObject::connect(horizontalSlider, SIGNAL(valueChanged(int)), spinBox, SLOT(setValue(int)));
         QObject::connect(spinBox, SIGNAL(valueChanged(int)), horizontalSlider, SLOT(setValue(int)));
         QObject::connect(checkBox_transparency, SIGNAL(clicked(bool)), widget_ss, SLOT(setVisible(bool)));
+        QObject::connect(checkBox_light, SIGNAL(clicked(bool)), widget_light, SLOT(setVisible(bool)));
 
         pushButton_close->setDefault(false);
 
@@ -195,7 +240,10 @@ public:
         actionOpen_file->setText(QApplication::translate("MainWindow", "Open file...", Q_NULLPTR));
         gB_Config->setTitle(QApplication::translate("MainWindow", "Configurations", Q_NULLPTR));
         checkBox_transparency->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\267\321\200\320\260\321\207\320\275\320\276\321\201\321\202\321\214", Q_NULLPTR));
-        checkBox_spotlights->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\266\320\265\320\272\321\202\320\276\321\200\320\260", Q_NULLPTR));
+        checkBox_light->setText(QApplication::translate("MainWindow", "\320\236\321\201\320\262\320\265\321\211\320\265\320\275\320\270\320\265", Q_NULLPTR));
+        checkBox_directionLight->setText(QApplication::translate("MainWindow", "Direction", Q_NULLPTR));
+        checkBox_pointLight->setText(QApplication::translate("MainWindow", "Point", Q_NULLPTR));
+        checkBox_spotLight->setText(QApplication::translate("MainWindow", "Spot", Q_NULLPTR));
         pushButton_close->setText(QApplication::translate("MainWindow", "&Quit", Q_NULLPTR));
         menuOpen_file->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
     } // retranslateUi

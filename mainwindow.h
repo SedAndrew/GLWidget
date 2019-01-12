@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QWidget>
+#include "global.h"
+#include "glwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,8 +22,15 @@ private slots:
     void on_actionOpen_file_triggered();
 
     void on_checkBox_transparency_clicked();
-
     void on_horizontalSlider_valueChanged(int value);
+
+    void on_checkBox_light_clicked();
+    void on_checkBox_directionLight_clicked();
+    void on_checkBox_pointLight_clicked();
+    void on_checkBox_spotLight_clicked();
+
+signals:
+    void setNewLight(Type &type);
 
 private:
     Ui::MainWindow *ui;

@@ -63,7 +63,7 @@
       <property name="title">
        <string>Configurations</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QCheckBox" name="checkBox_transparency">
          <property name="font">
@@ -92,7 +92,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <property name="leftMargin">
-           <number>0</number>
+           <number>18</number>
           </property>
           <property name="topMargin">
            <number>0</number>
@@ -145,15 +145,79 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_spotlights">
+        <widget class="QCheckBox" name="checkBox_light">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>Прожектора</string>
+          <string>Освещение</string>
          </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="LightWidget" name="widget_light" native="true">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <property name="leftMargin">
+           <number>18</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QCheckBox" name="checkBox_directionLight">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Direction</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_pointLight">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Point</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_spotLight">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Spot</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -255,6 +319,15 @@
    <extends>QWidget</extends>
    <header>glwidget.h</header>
    <container>1</container>
+   <slots>
+    <slot>getNewLight()</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>LightWidget</class>
+   <extends>QWidget</extends>
+   <header>lightwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -320,6 +393,22 @@
     <hint type="destinationlabel">
      <x>784</x>
      <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_light</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget_light</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>705</x>
+     <y>163</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>675</x>
+     <y>193</y>
     </hint>
    </hints>
   </connection>
