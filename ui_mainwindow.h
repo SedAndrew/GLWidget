@@ -225,8 +225,11 @@ public:
         QObject::connect(pushButton_close, SIGNAL(clicked()), MainWindow, SLOT(close()));
         QObject::connect(horizontalSlider, SIGNAL(valueChanged(int)), spinBox, SLOT(setValue(int)));
         QObject::connect(spinBox, SIGNAL(valueChanged(int)), horizontalSlider, SLOT(setValue(int)));
-        QObject::connect(checkBox_transparency, SIGNAL(clicked(bool)), widget_ss, SLOT(setVisible(bool)));
         QObject::connect(checkBox_light, SIGNAL(clicked(bool)), widget_light, SLOT(setVisible(bool)));
+        QObject::connect(checkBox_directionLight, SIGNAL(clicked(bool)), widgetGL, SLOT(getNewLight()));
+        QObject::connect(checkBox_pointLight, SIGNAL(clicked(bool)), widgetGL, SLOT(getNewLight()));
+        QObject::connect(checkBox_spotLight, SIGNAL(clicked(bool)), widgetGL, SLOT(getNewLight()));
+        QObject::connect(checkBox_transparency, SIGNAL(clicked(bool)), widgetGL, SLOT(enabledTransparency(bool)));
 
         pushButton_close->setDefault(false);
 

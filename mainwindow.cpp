@@ -4,10 +4,10 @@
 
 #include <QFileDialog>
 
-bool f_transparency;
 bool f_spotlights;
 int m_transparencyPower;
-Type m_typeLight = Point;
+bool f_transparency = true;
+Type m_typeLight = Spot;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -76,7 +76,12 @@ void MainWindow::getFile()
 
 void MainWindow::on_checkBox_transparency_clicked()
 {
-    ::f_transparency = true;
+    if (ui->checkBox_transparency->isChecked())
+        ::f_transparency = true;
+    else
+        ::f_transparency = false;
+
+    // нужно обновить GLwidget
 }
 
 void MainWindow::on_checkBox_light_clicked()
@@ -88,12 +93,7 @@ void MainWindow::on_checkBox_light_clicked()
         ui->checkBox_spotLight->setChecked(true);
         ::m_typeLight = Spot;
     }
-    emit setNewLight(::m_typeLight);
-}
-
-void MainWindow::on_horizontalSlider_valueChanged(int value)
-{
-    ::m_transparencyPower = value;
+    ui->widgetGL->setFocus();
 }
 
 void MainWindow::on_checkBox_directionLight_clicked()
@@ -106,6 +106,7 @@ void MainWindow::on_checkBox_directionLight_clicked()
         ::m_typeLight = Spot;
     //if (ui->checkBox_directionLight->isChecked())
     emit setNewLight(::m_typeLight);
+    ui->widgetGL->setFocus();
 }
 
 void MainWindow::on_checkBox_pointLight_clicked()
@@ -118,6 +119,7 @@ void MainWindow::on_checkBox_pointLight_clicked()
         ::m_typeLight = Spot;
 
     emit setNewLight(::m_typeLight);
+    ui->widgetGL->setFocus();
 }
 
 void MainWindow::on_checkBox_spotLight_clicked()
@@ -126,5 +128,10 @@ void MainWindow::on_checkBox_spotLight_clicked()
     ui->checkBox_pointLight->setChecked(false);
     ::m_typeLight = Spot;
     emit setNewLight(::m_typeLight);
+    ui->widgetGL->setFocus();
 }
 
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+    ::m_transparencyPower = value;
+}

@@ -7,7 +7,7 @@ Light::Light(const Type &type) :
     m_specularColor(1.0f, 1.0f, 1.0f),
     m_positon(0.0f, 0.0f, -10.0f, 1.0f),
     m_direction(0.0f, 0.0f, -1.0f, 0.0f),
-    m_cutoff(M_PI_2), // константа: pi/2
+    m_cutoff(M_PI_2),
     m_type(type)
 {
     m_litghtMatrix.setToIdentity();

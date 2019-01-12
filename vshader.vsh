@@ -18,7 +18,6 @@ varying highp mat3 v_tbnMatrix;
 varying highp vec4 v_positionLightMatrix;
 varying highp mat4 v_viewMatrix;
 
-
 highp mat3 transpose(in highp mat3 inMatrix) {
     highp vec3 i0 = inMatrix[0];
     highp vec3 i1 = inMatrix[1];

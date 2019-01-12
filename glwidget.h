@@ -12,6 +12,7 @@
 #include <QKeyEvent>
 
 #include "global.h"
+#include "transparencycheck.h"
 
 class ObjectEngine3D;
 class Transformational;
@@ -53,6 +54,7 @@ protected:
 
 private slots:
     void getNewLight(const Type &type);
+    void enabledTransparency(const bool &check);
 
 private:
     QMatrix4x4 m_projectionMatrix;
@@ -72,7 +74,6 @@ private:
     QVector<Group3D *> m_groups;
     QVector<Transformational *> m_transformObjects;
 
-
     QBasicTimer m_timer;
 
     float angleObject;
@@ -88,6 +89,8 @@ private:
     quint32 m_fbWidth;
 
     Light *m_light[2];
+
+    Transparency *m_transparencyCheck;
 
 };
 

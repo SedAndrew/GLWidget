@@ -16,6 +16,8 @@
 GLwidget::GLwidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
+    m_transparencyCheck = new Transparency;
+    m_transparencyCheck->flag = ::f_transparency;
 
     m_camera = new Camera3D;
     m_camera->translate(QVector3D(0.0f, 0.0f, -10.0f));
@@ -64,6 +66,7 @@ void GLwidget::initializeGL()
     glEnable(GL_CULL_FACE); //отсечение задних граней
 
     initShaders();
+
 
     float step = 2.0f;
     float x = 0.0f, y = 0.0f, z = 0.0f;
@@ -211,16 +214,21 @@ func->glDepthFunc(GL_LESS);
     for (int i = 0; i < m_transformObjects.size(); i++) {
         context()->functions()->glDepthMask(GL_FALSE);
         glEnable(GL_BLEND);
-        if (i == m_transformObjects.size() - 1) {
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-//            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            m_transformObjects[i]->draw(&m_program, context()->functions());
-        } else if (i == m_transformObjects.size() - 2) {
-//            glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            m_transformObjects[i]->draw(&m_program, context()->functions());
-        }
-        else {
+        if(m_transparencyCheck->getInfo()) {
+            if (i == m_transformObjects.size() - 1) {
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+    //            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                m_transformObjects[i]->draw(&m_program, context()->functions());
+            } else if (i == m_transformObjects.size() - 2) {
+    //            glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                m_transformObjects[i]->draw(&m_program, context()->functions());
+            } else {
+                context()->functions()->glDepthMask(GL_TRUE);
+                glDisable(GL_BLEND);
+                m_transformObjects[i]->draw(&m_program, context()->functions());
+            }
+        } else {
             context()->functions()->glDepthMask(GL_TRUE);
             glDisable(GL_BLEND);
             m_transformObjects[i]->draw(&m_program, context()->functions());
@@ -306,25 +314,54 @@ void GLwidget::keyPressEvent(QKeyEvent *event)
 {
 
     switch (event->key()) {
-    case Qt::Key_Left:
-        m_groups[0]->delObject(m_camera);
-        m_groups[1]->addObject(m_camera);
-        break;
-    case Qt::Key_Right:
-        m_groups[1]->delObject(m_camera);
-        m_groups[0]->addObject(m_camera);
-        break;
-    case Qt::Key_Down:
-        m_groups[0]->delObject(m_camera);
-        m_groups[1]->delObject(m_camera);
-        break;
-    case Qt::Key_Up:
-        m_groups[0]->delObject(m_camera);
-        m_groups[1]->delObject(m_camera);
-        QMatrix4x4 tmp; // центровка
-        tmp.setToIdentity();
-        m_camera->setGlobalTransform(tmp);
-        break;
+        case Qt::Key_Left:
+            m_groups[0]->delObject(m_camera);
+            m_groups[1]->addObject(m_camera);
+            break;
+        case Qt::Key_Right:
+            m_groups[1]->delObject(m_camera);
+            m_groups[0]->addObject(m_camera);
+            break;
+        case Qt::Key_Down:
+            m_groups[0]->delObject(m_camera);
+            m_groups[1]->delObject(m_camera);
+            break;
+        case Qt::Key_Up:
+            m_groups[0]->delObject(m_camera);
+            m_groups[1]->delObject(m_camera);
+            QMatrix4x4 tmp; // центровка
+            tmp.setToIdentity();
+            m_camera->setGlobalTransform(tmp);
+            break;
+
+//        case Qt::Key_T:
+//            m_transparencyCheck->setEnabled();
+//            break;
+
+        /*case Qt::Key_D:
+        {
+//            ::m_typeLight = Directional;
+            for (int i = 0; i < 2; ++i){
+                m_light[i]->setType(Directional);
+            }
+            break;
+        }
+        case Qt::Key_P:
+        {
+//            ::m_typeLight = Point;
+            for (int i = 0; i < 2; ++i){
+                m_light[i]->setType(Point);
+            }
+            break;
+        }
+        case Qt::Key_S:
+        {
+//            ::m_typeLight = Spot;
+            for (int i = 0; i < 2; ++i){
+                m_light[i]->setType(Spot);
+            }
+            break;
+        }*/
     }
     update();
 }
@@ -694,5 +731,14 @@ void GLwidget::getNewLight(const Type &type)
     for (int i = 0; i < 2; ++i) {
         m_light[i]->setType(type);
     }
+    update();
+}
+
+void GLwidget::enabledTransparency(const bool &check)
+{
+//    if(check)
+//        m_transparencyCheck = true;
+//    else
+//        m_transparencyCheck = false;
     update();
 }

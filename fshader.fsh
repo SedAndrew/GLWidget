@@ -42,7 +42,6 @@ varying highp vec4 v_position;
 varying highp vec2 v_texcoord;
 varying highp vec3 v_normal;
 varying highp mat3 v_tbnMatrix;
-
 varying highp vec4 v_positionLightMatrix;
 varying highp mat4 v_viewMatrix;
 
@@ -163,7 +162,7 @@ void main(void)
 
 
       if (u_isUsingDiffuseMap == false)
-         diffMatColor = vec4(u_materialProperty.diffuseColor, 1.0); // не прозрачный
+         diffMatColor = vec4(u_materialProperty.diffuseColor, 1.0);
       // добавление диффузного освещения
       vec4 diffColor = diffMatColor * u_lightPower * max(0.0, dot(usingNormal, -lightVect));// / (1 + 0.75 * pow(len, 2));
       resultLitghColor += diffColor * vec4(v_lightProperty[i].diffuseColor, transparencyPower); // 4-я  - прозрачность

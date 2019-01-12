@@ -40,7 +40,7 @@ private:
     QVector3D m_specularColor;
     QVector4D m_positon;
     QVector4D m_direction;
-    float m_cutoff; // половина угла в вершине конуса
+    float m_cutoff;
     Type m_type;
     QMatrix4x4 m_litghtMatrix;
 };

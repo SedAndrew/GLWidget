@@ -56,7 +56,8 @@ HEADERS  += mainwindow.h \
     objectengine3d.h \
     global.h \
     light.h \
-    lightwidget.h
+    lightwidget.h \
+    transparencycheck.h
 
 FORMS    += \
     mainwindow.ui

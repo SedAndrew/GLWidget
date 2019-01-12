@@ -321,6 +321,7 @@
    <container>1</container>
    <slots>
     <slot>getNewLight()</slot>
+    <slot>enabledTransparency(bool)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -381,22 +382,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transparency</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>widget_ss</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>715</x>
-     <y>90</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>784</x>
-     <y>114</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>checkBox_light</sender>
    <signal>clicked(bool)</signal>
    <receiver>widget_light</receiver>
@@ -409,6 +394,70 @@
     <hint type="destinationlabel">
      <x>675</x>
      <y>193</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_directionLight</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widgetGL</receiver>
+   <slot>getNewLight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>706</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>522</x>
+     <y>188</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_pointLight</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widgetGL</receiver>
+   <slot>getNewLight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>715</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>598</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_spotLight</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widgetGL</receiver>
+   <slot>getNewLight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>720</x>
+     <y>243</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>578</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transparency</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widgetGL</receiver>
+   <slot>enabledTransparency(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>734</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>507</x>
+     <y>96</y>
     </hint>
    </hints>
   </connection>
